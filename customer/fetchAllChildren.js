@@ -1,4 +1,4 @@
-//addcustomer
+//fetchAllChildren
 
 var express = require('express');
 var router = express.Router();
@@ -13,22 +13,22 @@ class InvalidArgumentException extends NE.InvalidArgumentException {};
 
 //browser data
 router.get('/', function (req, res, next) {
-    res.send('addCustomer API');
+    res.send('fetchAllChildren API');
 });
 
-// GET  addCustomer page.
+// GET  fetchAllChildren page.
 router.get('/', function (req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.find({}, {}, function (e, docs) {
-        res.render('addCustomer', {
-            "addCustomer": docs
+        res.render('fetchAllChildren API', {
+            "fetchAllChildren API": docs
         });
     });
 });
 
  
-//addcustomer API call
+//fetchAllChildren API call
 router.post('/', function (req, res) {
     trycatch(function (err, data) {
            setTimeout(function () {
@@ -65,9 +65,9 @@ router.post('/', function (req, res) {
                               console.log("Inside level function");
                               if(result === "NONE"){
                                   console.log("Done");
-                                  res.status(res.statusCode).send({
+                                 /* res.status(res.statusCode).send({
                                 "Result": "No children found"
-                                });
+                                });*/
                                   
                               }else{
                               for(var i=0; i<result.length; i++){
@@ -76,9 +76,9 @@ router.post('/', function (req, res) {
                                                    
                                       fetch_children(x, resultCallback1); 
                                   }
-                                   res.status(res.statusCode).send({
+                                /*res.status(res.statusCode).send({
                                 "Result": result
-                                });
+                                });*/
                               }
                      }//result_callback function
                                                 
@@ -104,9 +104,9 @@ function fetch_children(customer_id,callback){
                               console.log("Result"+JSON.stringify(result));
                               console.log("R1"+JSON.stringify(result1));
                                callback(result1);
-                              // res.status(res.statusCode).send({
-                               // "Result": result
-                               // });
+                               res.status(res.statusCode).send({
+                                "Result": result
+                                });
                              
                           }                        
                           

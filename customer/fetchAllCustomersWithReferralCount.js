@@ -1,4 +1,4 @@
-//addcustomer
+//fetchAllCustomersWithReferralCount
 
 var express = require('express');
 var router = express.Router();
@@ -13,28 +13,29 @@ class InvalidArgumentException extends NE.InvalidArgumentException {};
 
 //browser data
 router.get('/', function (req, res, next) {
-    res.send('addCustomer API');
+    res.send('fetchAllCustomersWithReferralCount API');
 });
 
-// GET  addCustomer page.
+// GET fetchAllCustomersWithReferralCount page.
 router.get('/', function (req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.find({}, {}, function (e, docs) {
-        res.render('addCustomer', {
-            "addCustomer": docs
+        res.render('fetchAllCustomersWithReferralCount', {
+            "fetchAllCustomersWithReferralCount": docs
         });
     });
 });
 
  
-//addcustomer API call
+//fetchAllCustomersWithReferralCount API call
 router.post('/', function (req, res) {
     trycatch(function (err, data) {
            setTimeout(function () {
                 var db = req.db;
+                var status = "ok";
                
-                if (0) {
+                if (typeof status == undefined) {
                     // console.log("Inside Exception");
                     throw new NE.InvalidArgumentException();
                 } else {

@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//password encryption
 var bcrypt = require('bcrypt');
 //handling exception
 var trycatch = require('trycatch');
@@ -22,12 +23,12 @@ var users = require('./routes/users');
 var addCustomer = require('./customer/addCustomer');
 var getCustomerById = require('./customer/getCustomerById');
 var addReferral = require('./customer/addReferral');
-var abc = require('./customer/abc');
-var r1 = require('./customer/r1');
 var fetchAllChildren = require('./customer/fetchAllChildren');
-var addAmbassador = require('./customer/addAmbassador');
 var fetchAllCustomersWithReferralCount = require('./customer/fetchAllCustomersWithReferralCount');
+var addAmbassador = require('./customer/addAmbassador');
+var convertCustomerToAmbassador = require('./customer/convertCustomerToAmbassador');
 var fetchAllAmbassadorChildren = require('./customer/fetchAllAmbassadorChildren');
+var fetchChildrenAtNthLEvel = require('./customer/fetchChildrenAtNthLEvel');
 
 
 // view engine setup
@@ -65,14 +66,15 @@ app.get('/', function (req, res) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/addCustomer', addCustomer);
-app.use('/addReferral', addReferral);
 app.use('/getCustomerById', getCustomerById);
-app.use('/abc',abc);
-app.use('/r1',r1);
+app.use('/addReferral', addReferral);
 app.use('/fetchAllChildren', fetchAllChildren);
-app.use('/addAmbassador', addAmbassador);
 app.use('/fetchAllCustomersWithReferralCount', fetchAllCustomersWithReferralCount);
+app.use('/addAmbassador', addAmbassador);
+app.use('/convertCustomerToAmbassador', convertCustomerToAmbassador);
 app.use('/fetchAllAmbassadorChildren', fetchAllAmbassadorChildren);
+app.use('/fetchChildrenAtNthLEvel', fetchChildrenAtNthLEvel);
+
 
 trycatch(function (err, res) {
     setTimeout(function () {

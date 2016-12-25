@@ -1,4 +1,4 @@
-//addcustomer
+//addReferral
 
 var express = require('express');
 var router = express.Router();
@@ -13,22 +13,22 @@ class InvalidArgumentException extends NE.InvalidArgumentException {};
 
 //browser data
 router.get('/', function (req, res, next) {
-    res.send('addCustomer API');
+    res.send('addReferral API');
 });
 
-// GET  addCustomer page.
+// GET  addReferral page.
 router.get('/', function (req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.find({}, {}, function (e, docs) {
-        res.render('addCustomer', {
-            "addCustomer": docs
+        res.render('addReferral', {
+            "addReferral": docs
         });
     });
 });
 
  
-//addcustomer API call
+//addReferral API call
 router.post('/', function (req, res) {
     trycatch(function (err, data) {
            setTimeout(function () {

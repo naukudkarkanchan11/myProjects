@@ -1,4 +1,4 @@
-//addcustomer
+//fetchAllAmbassadorChildren
 
 var express = require('express');
 var router = express.Router();
@@ -13,22 +13,22 @@ class InvalidArgumentException extends NE.InvalidArgumentException {};
 
 //browser data
 router.get('/', function (req, res, next) {
-    res.send('addCustomer API');
+    res.send('fetchAllAmbassadorChildren API');
 });
 
-// GET  addCustomer page.
+// GET fetchAllAmbassadorChildren page.
 router.get('/', function (req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.find({}, {}, function (e, docs) {
-        res.render('addCustomer', {
-            "addCustomer": docs
+        res.render('fetchAllAmbassadorChildren', {
+            "fetchAllAmbassadorChildren": docs
         });
     });
 });
 
  
-//addcustomer API call
+//fetchAllAmbassadorChildren API call
 router.post('/', function (req, res) {
     trycatch(function (err, data) {
            setTimeout(function () {
@@ -53,9 +53,7 @@ router.post('/', function (req, res) {
 
                     var customers = db.get("customers"); 
                     console.log("C"+customer_id);
-                    //email using as username
-                    console.log("Customer Info");
-                    
+                                        
                     customers.find({"customer_id": customer_id,"isAmbassador":true}, function(err, docs){
                               if(err){
                                   console.log("Error"+err);

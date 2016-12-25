@@ -1,4 +1,4 @@
-//addcustomer
+//addCustomer
 
 var express = require('express');
 var router = express.Router();
@@ -28,7 +28,7 @@ router.get('/', function (req, res) {
 });
 
  
-//addcustomer API call
+//addCustomer API call
 router.post('/', function (req, res) {
     trycatch(function (err, data) {
            setTimeout(function () {

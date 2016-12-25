@@ -1,4 +1,4 @@
-//getCustomerById
+//convertCustomerToAmbassador
 
 var express = require('express');
 var router = express.Router();
@@ -11,34 +11,38 @@ class InvalidArgumentException extends NE.InvalidArgumentException {};
 
 //browser data
 router.get('/', function (req, res, next) {
-    res.send('getCustomerById API');
+    res.send('convertCustomerToAmbassador API');
 });
 
-// GET getCustomerById page.
+// GET convertCustomerToAmbassador page.
 router.get('/', function (req, res) {
     var db = req.db;
     var collection = db.get('customers');
     collection.find({}, {}, function (e, docs) {
-        res.render('getCustomerById', {
-            "getCustomerById": docs
+        res.render('convertCustomerToAmbassador', {
+            "convertCustomerToAmbassador": docs
         });
     });
 });
 
 
-//getCustomerById API call
+//convertCustomerToAmbassador API call
 router.post('/', function (req, res) {
     trycatch(function (err, data) {
            setTimeout(function () {
                 var db = req.db;
                 
                 var customer_id1 = req.body.customer_id;
-                console.log("Helloo");
                 var customer_id = parseInt(customer_id1);
+                var isAmbassador1 = req.body.isAmbassador;
+                if(isAmbassador1 === "true")
+                    var isAmbassador = true;
+                else
+                    var isAmbassador = false;
                 console.log("C"+customer_id);
                
                                
-                if (typeof customer_id == undefined) {
+                if (typeof customer_id == undefined || typeof isAmbassador == undefined) {
                     // console.log("Inside Exception");
                     throw new NE.InvalidArgumentException();
                 } else {
@@ -46,21 +50,21 @@ router.post('/', function (req, res) {
 
                     var customers = db.get("customers");                    
 
-                    customers.find({
+                    customers.update({
                         "customer_id": customer_id
-                    }, function (err, docs) {
-                        if (docs.length !== 0) {
-                            console.log("got it");
-                            console.log("Customer Info" + docs)
-                             res.status(res.statusCode).send({
-                                 "Customer_Info": docs
-                             });
-                        }else{
-                            console.log("No customer with given Id");
-                            res.status(res.statusCode).send({
-                                 "Customer_Info": "No customer with given Id"
-                            });
+                    }, {$set: {
+                        "isAmbassador": isAmbassador
                         }
+                       }, function (err, docs) {
+                           if(err){
+                               console.log("Error"+err);
+                           }else{
+                               console.log("customer conveted to Ambassador");
+                                res.status(res.statusCode).send({
+                                "Status": "Customer converted to Ambassador"
+                                });
+                           }
+                        
                     });
                            
                 }
